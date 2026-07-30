@@ -13,6 +13,16 @@ from PIL import Image
 import pandas as pd
 import numpy as np
 
+# To Show web-app: complete page layout
+st.set_page_config(layout="wide")
+
+# To Give Title
+st.title("AI RESUME GENERATOR")
+
+st.write("""This app helps user to build customized Professional
+Resume with Latest Job apply links""")
+
+st.image("bg.png")
 
 #============API KEYS===================
 TAVILY_API_KEY = "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"
@@ -26,8 +36,8 @@ model = ChatGoogleGenerativeAI(
     google_api_key = GOOGLE_API_KEY
 )
 
-response = model.invoke("Hello Buddy!")
-response.content[-1]["text"]
+# response = model.invoke("Hello Buddy!")
+# response.content[-1]["text"]
 
 
 #===========TOOL 1======================
@@ -48,7 +58,7 @@ agent = create_agent(
     model = model,
     tools = [search_latest_news_jobs]
 )
-agent
+# agent
 
 
 #==============MAIN AGENT===============
@@ -99,18 +109,18 @@ def main_agent(agent, query):
 
 
 #==========CALLING MAIN AGENT===============
-info = """Name: Samir Khan
-        Email: sksamirkhan@gmail.com
-        Education: 12th from jindal public school
-                   BCA from institue of innovation and management
-        Target Role: DATA ANALYST
-        Location: Dabri,Delhi
-        professional summary: according to you
-        work experiance: TCS 0-2 years as junior data analyst and infosys 0-5 as senior data analyst
-        skills: python,java,sql,excel,power bi, word, canva"""
-code = main_agent(agent,info)
-from IPython import display as DISPLAY
-DISPLAY.HTML(code)
+# info = """Name: Samir Khan
+#         Email: sksamirkhan@gmail.com
+#         Education: 12th from jindal public school
+#                    BCA from institue of innovation and management
+#         Target Role: DATA ANALYST
+#         Location: Dabri,Delhi
+#         professional summary: according to you
+#         work experiance: TCS 0-2 years as junior data analyst and infosys 0-5 as senior data analyst
+#         skills: python,java,sql,excel,power bi, word, canva"""
+# code = main_agent(agent,info)
+# from IPython import display as DISPLAY
+# DISPLAY.HTML(code)
 
 
 
@@ -137,5 +147,5 @@ def get_jobs(agent,Location = "Noida,Delhi",Profile = "ML Engineer"):
   return code
 
 #========CALLING GET JOBS====================
-code = get_jobs(agent)
-DISPLAY.HTML(code)
+# code = get_jobs(agent)
+# DISPLAY.HTML(code)
