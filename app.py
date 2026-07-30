@@ -26,7 +26,7 @@ st.image("bg.png")
 st.sidebar.image("bg.png")
 
 st.sidebar.title("Fill Important Details")
-st.sidebar.image("bg.png)
+st.sidebar.image("bg.png")
 
 #============API KEYS===================
 TAVILY_API_KEY = "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"
