@@ -182,5 +182,5 @@ if st.button("Generate Resume"):
                 unsafe_allow_javascript = True)
         st.divider() # to give horizontal div
         job_code = get_jobs(agent,location,profile)
-        st.html(code, width = "stretch",
+        st.html(job_code, width = "stretch",
                 unsafe_allow_javascript = True)
