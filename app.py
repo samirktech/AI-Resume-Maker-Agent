@@ -21,11 +21,11 @@ st.title("AI RESUME GENERATOR")
 st.write("""This app helps user to build customized Professional
 Resume with Latest Job apply links""")
 
-st.image("bg.png")
+st.image("https://raw.githubusercontent.com/samirktech/AI-Resume-Maker-Agent/refs/heads/main/bg.png")
 
 
 st.sidebar.title("Fill Important Details")
-st.sidebar.image("bg.png")
+st.sidebar.image("https://raw.githubusercontent.com/samirktech/AI-Resume-Maker-Agent/refs/heads/main/bg.png")
 
 #============API KEYS===================
 TAVILY_API_KEY = st.sidebar.text_input("Tavily-API",type = "password")
@@ -39,6 +39,11 @@ if not all(all_API):
     st.stop()
 elif all(all_API):
     st.success("API KEYS LOADED SUCCESSFULLY")
+    #===========MODEL CREATION==============
+    model = ChatGoogleGenerativeAI(
+        model = 'gemini-3.5-flash-lite',
+        google_api_key = GOOGLE_API_KEY
+    )
 else:
     st.info("PASS ALL API-KEYS")
 
@@ -55,11 +60,6 @@ profile = st.sidebar.multiselect("Select Job Profile",options = profile_op)
 st.markdown("""### GET USER INFO""")
 user_info = st.text_area("""Write your Resume Description: """)
 
-#===========MODEL CREATION==============
-model = ChatGoogleGenerativeAI(
-    model = 'gemini-3.5-flash-lite',
-    google_api_key = GOOGLE_API_KEY
-)
 
 # response = model.invoke("Hello Buddy!")
 # response.content[-1]["text"]
@@ -174,13 +174,17 @@ def get_jobs(agent,Location = "Noida,Delhi",Profile = "ML Engineer"):
 #========CALLING GET JOBS====================
 # code = get_jobs(agent)
 # DISPLAY.HTML(code)
-
 if st.button("Generate Resume"):
     with st.spinner("Agent Running"):
-        code = main_agent(agent,user_info)
-        st.html(code, width = "stretch",
-                unsafe_allow_javascript = True)
+        raw_code = main_agent(agent, user_info)
+        
+        code = raw_code.replace("```html", "").replace("```", "").strip()
+        
+        st.html(code, width="stretch", unsafe_allow_javascript=True)
+        
         st.divider() # to give horizontal div
-        job_code = get_jobs(agent,location,profile)
-        st.html(job_code, width = "stretch",
-                unsafe_allow_javascript = True)
+    
+        raw_job_code = get_jobs(agent, location, profile)
+        job_code = raw_job_code.replace("```html", "").replace("```", "").strip()
+        
+        st.html(job_code, width="stretch", unsafe_allow_javascript=True)
